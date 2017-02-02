@@ -24,7 +24,7 @@ do
     ABSPATH=${dir}${file}
     # Convert absolute path to relative
     RELPATH=`echo "$ABSPATH" | sed 's_'$WATCHPATH'/__'`
-    echo "Event $event triggered on $FILECHANGE (rel: $RELPATH)"
+    echo "Event $event triggered on $FILECHANGE (rel: $RELPATH)" > /dev/stdout
 
     if [[ "$event" == *"DELETE"* ]] || [[ "$event" == "MOVED_FROM" ]]
     then
