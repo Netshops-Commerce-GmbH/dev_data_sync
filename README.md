@@ -1,4 +1,4 @@
-# Docker data sync image wit inotify/iwatch
+# Docker data sync image with inotify/iwatch
 
 This image is used to sync files from ``/var/www/src`` to ``/var/www/html`` (single direction).
 
