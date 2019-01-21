@@ -1,0 +1,21 @@
+image: docker:stable
+
+variables:
+    DOCKER_DRIVER: overlay2
+    CONTAINER_IMAGE: $DOCKER_HUB_USER/$CI_PROJECT_NAME
+
+services:
+    - docker:dind
+
+before_script:
+    - docker info
+    - docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASSWORD
+
+build:
+    tags: [docker]
+    stage: build
+    script:
+        - docker pull $CONTAINER_IMAGE:latest || true
+        - docker build --cache-from $CONTAINER_IMAGE:latest --tag $CONTAINER_IMAGE:$CI_COMMIT_SHA --tag $CONTAINER_IMAGE:latest .
+        - docker push $CONTAINER_IMAGE:$CI_COMMIT_SHA
+        - docker push $CONTAINER_IMAGE:latest
